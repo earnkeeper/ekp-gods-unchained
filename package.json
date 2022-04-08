@@ -1,7 +1,7 @@
 {
-  "name": "ekp-splinterlands",
-  "version": "1.1.4",
-  "description": "EarnKeeper.io plugin for https://splinterlands.com/",
+  "name": "ekp-gods-unchained",
+  "version": "0.1.0",
+  "description": "EarnKeeper.io plugin for https://godsunchained.com/",
   "main": "index.js",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -10,8 +10,8 @@
     "start:prod": "node dist/main",
     "gen-secret-key": "werf helm secret generate-secret-key > .werf_secret_key",
     "encrypt-secrets": "werf helm secret values encrypt clear-values.yaml -o .helm/secret-values.yaml",
-    "gh-set-secret-key": "gh secret set WERF_SECRET_KEY --repos=\"earnkeeper/ekp-splinterlands\" < .werf_secret_key",
-    "gh-set-do-creds": "gh secret set KUBE_CONFIG_BASE64_DATA --repos=\"earnkeeper/ekp-splinterlands\" -b$(doctl kubernetes cluster kubeconfig show ekp | base64)",
+    "gh-set-secret-key": "gh secret set WERF_SECRET_KEY --repos=\"earnkeeper/ekp-gods-unchained\" < .werf_secret_key",
+    "gh-set-do-creds": "gh secret set KUBE_CONFIG_BASE64_DATA --repos=\"earnkeeper/ekp-gods-unchained\" -b$(doctl kubernetes cluster kubeconfig show ekp | base64)",
     "test:e2e": "jest --config ./test/jest-e2e.json --watch",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/earnkeeper/ekp-splinterlands.git"
+    "url": "git+https://github.com/earnkeeper/ekp-gods-unchained.git"
   },
   "author": "Gavin Shaw",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/earnkeeper/ekp-splinterlands/issues"
+    "url": "https://github.com/earnkeeper/ekp-gods-unchained/issues"
   },
-  "homepage": "https://github.com/earnkeeper/ekp-splinterlands#readme",
+  "homepage": "https://github.com/earnkeeper/ekp-gods-unchained#readme",
   "dependencies": {
     "@earnkeeper/ekp-sdk": "0.2.10",
     "@earnkeeper/ekp-sdk-nestjs": "1.1.10",

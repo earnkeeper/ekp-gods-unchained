@@ -21,9 +21,9 @@ spec:
           workingDir: /app
           env:
             - name: EKP_PLUGIN_ID
-              value: 'splinterlands'
+              value: 'gods-unchained'
             - name: EKP_PLUGIN_NAME
-              value: 'Splinterlands'
+              value: 'Gods Unchained'
             - name: MONGO_HOST
               value: '{{ .Values.mongodb.host }}'
             - name: MONGO_DB_NAME

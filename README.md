@@ -1,6 +1,6 @@
-# God Unchained EarnKeeper.io Plugin
+# Gods Unchained EarnKeeper.io Plugin
 
-The (EarnKeeper.io)[https://github.com/earnkeeper] plugin for [God Unchained](https://splintlerands.com/).
+The (EarnKeeper.io)[https://github.com/earnkeeper] plugin for [Gods Unchained](https://godsunchained.com/).
 
 This plugin uses the [EarnKeeper NestJs SDK](https://github.com/earnkeeper/ekp-sdk-nestjs).
 
@@ -49,7 +49,3 @@ WERF_SECRET_KEY|The contents of .werf_secret_key in the root of your project
 KUBE_CONFIG_BASE64_DATA|The output of `doctl kubernetes cluster kubeconfig show <config name> | base64` if using digital ocean
 
 Commit your changes and push to `main` branch. The github action in this repo will perform the deploy with werf.
-
-## God Unchained Api
-
-https://splinterviewer.com/api
