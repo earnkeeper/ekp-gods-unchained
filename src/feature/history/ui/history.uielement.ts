@@ -19,7 +19,6 @@ import {
     Span,
     UiElement,
   } from '@earnkeeper/ekp-sdk';
-  import { DEFAULT_HISTORY_FORM } from '../../../util';
   import { HistoryDocument } from './history.document';
   
   export default function element(): UiElement {
@@ -58,8 +57,7 @@ import {
         properties: {
           playerName: 'string',
           leagueName: 'string',
-        },
-        default: DEFAULT_HISTORY_FORM,
+        }
       },
       children: [
         Row({

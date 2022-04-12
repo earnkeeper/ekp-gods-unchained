@@ -1,11 +1,15 @@
 import { CurrencyDto } from '@earnkeeper/ekp-sdk';
 import { CoingeckoService } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
-import moment from 'moment';
+//import moment from 'moment';
 import { HistoryDto } from 'src/shared/api/dto/history.dto';
+<<<<<<< Updated upstream
 import { HistoryForm } from 'src/util/forms/history-form';
 import { ApiService } from '../../shared/api';
 import { DEFAULT_HISTORY_FORM } from '../../util/constants';
+=======
+import { ApiService, LeaderboardDto, SettingsDto } from '../../shared/api';
+>>>>>>> Stashed changes
 import { HistoryDocument } from './ui/history.document';
 
 @Injectable()
@@ -16,7 +20,7 @@ export class HistoryService {
   ) {}
 
   async getHistoryDocuments(
-    form: HistoryForm,
+    form: any,
   ): Promise<HistoryDocument[]> {
   
     const historyDto = await this.apiService.fetchHistory(
@@ -28,9 +32,9 @@ export class HistoryService {
 
   async mapDocuments(
     historyDto: HistoryDto,
-    form: HistoryForm,
+    form: any,
   ) {
-    const now = moment().unix();
+    //const now = moment().unix();
     const documents: HistoryDocument[] = historyDto.battles.map(
       (battles) => {
         return {
