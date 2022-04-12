@@ -8,7 +8,7 @@ export const MODULE_DEF = {
   imports: [
     MongooseModule.forRootAsync({ useClass: EkConfigService }),
     HistoryModule,
-     HistoryModule,
+    HistoryModule,
     SdkModule,
   ],
 };

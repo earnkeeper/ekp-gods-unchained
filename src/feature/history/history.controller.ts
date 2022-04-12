@@ -19,7 +19,7 @@ import { format } from 'path';
   import history from './ui/history.uielement';
   
   const COLLECTION_NAME = collection(HistoryDocument);
-  const PATH = 'history';
+  const PATH = 'cards';
   
   @Injectable()
   export class HistoryController extends AbstractController {

@@ -52,4 +52,4 @@ Commit your changes and push to `main` branch. The github action in this repo wi
 
 ## God Unchained Api
 
-https://splinterviewer.com/api
+
