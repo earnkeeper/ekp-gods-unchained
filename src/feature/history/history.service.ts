@@ -2,12 +2,9 @@ import { CoingeckoService } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 //import moment from 'moment';
 import { HistoryDto } from 'src/shared/api/dto/history.dto';
-<<<<<<< Updated upstream
-import { ApiService } from '../../shared/api';
-import { DEFAULT_HISTORY_FORM } from '../../util/constants';
-=======
-import { ApiService, LeaderboardDto, SettingsDto } from '../../shared/api';
->>>>>>> Stashed changes
+
+import { ApiService} from '../../shared/api';
+
 import { HistoryDocument } from './ui/history.document';
 
 @Injectable()
