@@ -1,10 +1,8 @@
-import { CurrencyDto } from '@earnkeeper/ekp-sdk';
 import { CoingeckoService } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 //import moment from 'moment';
 import { HistoryDto } from 'src/shared/api/dto/history.dto';
 <<<<<<< Updated upstream
-import { HistoryForm } from 'src/util/forms/history-form';
 import { ApiService } from '../../shared/api';
 import { DEFAULT_HISTORY_FORM } from '../../util/constants';
 =======
