@@ -14,15 +14,18 @@ import {
   } from '@earnkeeper/ekp-sdk-nestjs';
   import { Injectable } from '@nestjs/common';
 import { format } from 'path';
+import { CardDto } from 'src/shared/api';
+import { CardForm } from 'src/util/form';
 import { CardService } from './card.service';
 import { CardDocument } from './ui/cards.document';
+import card from './ui/card.uielement';
+import { DEFAULT_CARD_FORM } from 'src/util';
 
-  
   const COLLECTION_NAME = collection(CardDocument);
   const PATH = 'cards';
   
   @Injectable()
-  export class HistoryController extends AbstractController {
+  export class CardController extends AbstractController {
     constructor(
       clientService: ClientService,
       private cardService: CardService,
@@ -36,12 +39,12 @@ import { CardDocument } from './ui/cards.document';
         id: PATH,
         title: 'Cards',
         navLink: PATH,
-        icon: 'cil-history',
+        icon: 'cil-color-palette',
       });
   
       await this.clientService.emitPage(event, {
         id: PATH,
-        element: cards(),
+        element: card(),
       });
     }
   
@@ -57,12 +60,13 @@ import { CardDocument } from './ui/cards.document';
       await this.clientService.emitBusy(event, COLLECTION_NAME);
   
       try {
-        let form: any 
+        const form: CardForm =
+        event.state.forms?.cards ?? DEFAULT_CARD_FORM;
+
           event.state.forms?.playerName ?? COLLECTION_NAME;
           const cardDocuments =
           await this.cardService.getCardDocuments(
             form,
-            cardsDto,
           );
   
         this.clientService.emitDocuments(
@@ -84,11 +88,5 @@ import { CardDocument } from './ui/cards.document';
     }
   }
 
-function cards(): UiElement {
-    throw new Error('Function not implemented.');
-}
 
-function cardsDto(form: any, cardsDto: any) {
-    throw new Error('Function not implemented.');
-}
   

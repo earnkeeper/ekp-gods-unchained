@@ -5,7 +5,7 @@ export type CardDto = Readonly<{
     records: RecordsDto[];
    }>;
 export type RecordsDto= Readonly<{
-     id: IdDto[];
+     id: string;
      user: string;
      proto: number;
      purity: number;

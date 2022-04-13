@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios-https-proxy-fix';
 import { validate } from 'bycontract';
 import { CardDto } from './dto';
+import { CardCollectionDto } from './dto/card-collection.dto';
 import { HistoryDto } from './dto/history.dto';
 import { ProtoDto } from './dto/proto.dto';
 
@@ -28,8 +29,9 @@ export class ApiService extends AbstractApiService {
   }
 
   
-  async fetchCards(
+  async fetchCards( playerName: string
   ): Promise<CardDto> {
+    console.log(playerName);
     const url = `${BASE_URL}card?user=0xf096e0d009dd024e5cff8075a7418b5712f0cc7d`;
     return this.handleCall({ url, ttl: 15 }, async () => {
       const response = await axios.get(url, { proxy: this.proxy });
@@ -49,7 +51,7 @@ export class ApiService extends AbstractApiService {
 
   async fetchProto(
 
-    ): Promise<ProtoDto> {
+    ): Promise<CardCollectionDto> {
       const url = `${BASE_URL}proto?page=3&perPage=100`;
       return this.handleCall({ url, ttl: 15 }, async () => {
         const response = await axios.get(url, { proxy: this.proxy });

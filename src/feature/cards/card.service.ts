@@ -1,38 +1,39 @@
 import { CoingeckoService } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 //import moment from 'moment';
-import { CardDto } from 'src/shared/api/dto/card.dto';
-import { ApiService} from '../../shared/api';
+
+import { CardForm } from 'src/util/form';
+import { ApiService, CardDto} from '../../shared/api';
 import { CardDocument } from './ui/cards.document';
 
 @Injectable()
 export class CardService {
   constructor(
-    private coingeckoService: CoingeckoService,
     private apiService: ApiService,
   ) {}
 
   async getCardDocuments(
-    form: any,
-    cardsDto: any,
-  ): Promise<any> {
+    form: CardForm,
+  ): Promise<CardDocument[]> {
   
-    const cardDto = await this.apiService.fetchCards(
+    const cardDto = await this.apiService.fetchCards(form.playerName
     );
-    console.log(cardDto);
 
-    return this.mapDocuments(cardsDto, form);
+    return this.mapDocuments(form, cardDto);
   }
 
   async mapDocuments(
+    form: CardForm,
     cardsDto: CardDto,
-    form: any,
   ) {
 
-    const documents = cardsDto.records.map(
-      (battles) => {
+    const documents: CardDocument[] = cardsDto.records.map(
+      (records) => {
         return {
-          id: battles.id,
+          id: records.id,
+          user: records.user,
+          proto: records.proto,
+          purity: records.purity,
         };
       },
     );
