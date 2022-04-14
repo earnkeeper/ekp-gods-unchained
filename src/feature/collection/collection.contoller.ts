@@ -2,7 +2,6 @@ import {
   ClientConnectedEvent,
   ClientDisconnectedEvent,
   ClientStateChangedEvent,
-  collection,
   RpcEvent,
 } from '@earnkeeper/ekp-sdk';
 import {
@@ -12,8 +11,8 @@ import {
   logger,
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
-import { DEFAULT_COLLECTION_FORM } from 'src/util';
-import { CollectionForm } from 'src/util/form';
+import { CollectionForm, DEFAULT_COLLECTION_FORM } from '../../util';
+import { collection } from '../../util/paths';
 import { CollectionService } from './collection.service';
 import { CollectionDocument } from './ui/collection.document';
 import collections from './ui/collection.uielement';

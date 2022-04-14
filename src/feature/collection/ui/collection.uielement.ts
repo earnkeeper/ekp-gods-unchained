@@ -1,10 +1,8 @@
 import {
   Button,
   Col,
-  collection,
   Container,
   Datatable,
-  documents,
   Form,
   formatCurrency,
   formatToken,
@@ -18,7 +16,8 @@ import {
   Span,
   UiElement,
 } from '@earnkeeper/ekp-sdk';
-import { DEFAULT_COLLECTION_FORM } from 'src/util';
+import { DEFAULT_COLLECTION_FORM } from '../../../util';
+import { collection, documents } from '../../../util/paths';
 import { CollectionDocument } from './collection.document';
 
 export default function element(): UiElement {
@@ -173,7 +172,6 @@ export function decksTable() {
                 label: 'Live',
                 value: '$.live',
               },
-
             ],
             left: {
               content: formatCurrency('$.price', '$.fiatSymbol'),

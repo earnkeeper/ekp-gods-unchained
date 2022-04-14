@@ -49,7 +49,3 @@ WERF_SECRET_KEY|The contents of .werf_secret_key in the root of your project
 KUBE_CONFIG_BASE64_DATA|The output of `doctl kubernetes cluster kubeconfig show <config name> | base64` if using digital ocean
 
 Commit your changes and push to `main` branch. The github action in this repo will perform the deploy with werf.
-
-## God Unchained Api
-
-

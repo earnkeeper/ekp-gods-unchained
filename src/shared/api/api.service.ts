@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios-https-proxy-fix';
 import { CardDto } from './dto';
 import { ProtoDto } from './dto/proto.dto';
-
 //URL for API
 const BASE_URL = 'https://api.godsunchained.com/v0/';
 
