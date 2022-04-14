@@ -13,13 +13,13 @@ import {
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_COLLECTION_FORM } from 'src/util';
-import { CardForm } from 'src/util/form';
+import { CardForm } from '../../util/form';
 import { CardService } from './card.service';
 import { CardDocument } from './ui/card.document';
-import collections from './ui/card.uielement';
+import card from './ui/card.uielement';
 
 const COLLECTION_NAME = collection(CardDocument);
-const PATH = 'card';
+const PATH = 'cards';
 
 @Injectable()
 export class CardController extends AbstractController {
@@ -41,7 +41,7 @@ export class CardController extends AbstractController {
 
     await this.clientService.emitPage(event, {
       id: PATH,
-      element: collections(),
+      element: card(),
     });
   }
 

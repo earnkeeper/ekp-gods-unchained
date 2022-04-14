@@ -1,10 +1,8 @@
 import {
   Button,
   Col,
-  collection,
   Container,
   Datatable,
-  documents,
   Form,
   formatCurrency,
   formatToken,
@@ -20,7 +18,7 @@ import {
 } from '@earnkeeper/ekp-sdk';
 import { DEFAULT_CARD_FORM } from 'src/util';
 import { CardDocument } from './card.document';
-
+import { collection, documents } from '../../../util/paths';
 export default function element(): UiElement {
   return Container({
     children: [titleRow(), statsRow(), yourDetailsRow(), decksTable()],
@@ -37,7 +35,7 @@ function titleRow() {
             className: 'col-auto',
             children: [
               PageHeaderTile({
-                title: 'Player Cards',
+                title: 'Card Browser',
                 icon: 'cil-color-palette',
               }),
             ],

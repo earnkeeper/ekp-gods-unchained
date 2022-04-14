@@ -15,7 +15,7 @@ export class CardService {
       return [];
     }
 
-    const cards = await this.apiService.fetchCards(playerAddress);
+    const cards = await this.apiService.fetchAllCards();
 
     const protos = await this.apiService.fetchProtos();
 
@@ -41,6 +41,7 @@ export class CardService {
       };
     });
   
+    console.log(documents)
     return documents;
   }
 }

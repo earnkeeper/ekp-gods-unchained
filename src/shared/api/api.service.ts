@@ -23,8 +23,8 @@ export class ApiService extends AbstractApiService {
     }
   }
 
-  async fetchCards(playerAddress: string): Promise<CardDto[]> {
-    const url = `${BASE_URL}card/`;
+  async fetchCards(playerAddress:string): Promise<CardDto[]> {
+    const url = `${BASE_URL}card?user=${playerAddress}`;
 
     return this.handleCall({ url, ttl: 15 }, async () => {
       const response = await axios.get(url, { proxy: this.proxy });
@@ -32,6 +32,23 @@ export class ApiService extends AbstractApiService {
     });
   }
 
+  async fetchAllCards(): Promise<CardDto[]> {
+    const url = `${BASE_URL}card?perPage=105315`;
+
+    return this.handleCall({ url, ttl: 15 }, async () => {
+      const response = await axios.get(url, { proxy: this.proxy });
+      return response.data?.records ?? [];
+    });
+  }
+
+  async fetchAllProtos(): Promise<ProtoDto[]> {
+    const url = `${BASE_URL}proto?perPage=10000`;
+
+    return this.handleCall({ url, ttl: 86400 }, async () => {
+      const response = await axios.get(url, { proxy: this.proxy });
+      return response.data?.records ?? [];
+    });
+  }
   async fetchProtos(): Promise<ProtoDto[]> {
     const url = `${BASE_URL}proto?perPage=10000`;
     return this.handleCall({ url, ttl: 86400 }, async () => {
