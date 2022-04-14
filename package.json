@@ -1,6 +1,6 @@
 {
     "name": "ekp-gods-unchained",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "EarnKeeper.io plugin for https://godsunchained.com/",
     "main": "index.js",
     "scripts": {
@@ -29,7 +29,7 @@
     },
     "homepage": "https://github.com/earnkeeper/ekp-gods-unchained#readme",
     "dependencies": {
-      "@earnkeeper/ekp-sdk": "0.2.14",
+      "@earnkeeper/ekp-sdk": "0.2.15",
       "@earnkeeper/ekp-sdk-nestjs": "1.1.12",
       "axios-https-proxy-fix": "^0.17.1"
     },

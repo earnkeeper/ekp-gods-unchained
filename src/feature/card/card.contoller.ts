@@ -12,8 +12,6 @@ import {
   logger,
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
-import { DEFAULT_COLLECTION_FORM } from 'src/util';
-import { CardForm } from '../../util/form';
 import { CardService } from './card.service';
 import { CardDocument } from './ui/card.document';
 import card from './ui/card.uielement';
@@ -25,7 +23,7 @@ const PATH = 'cards';
 export class CardController extends AbstractController {
   constructor(
     clientService: ClientService,
-    private collectionService: CardService,
+    private cardService: CardService,
     private apmService: ApmService,
   ) {
     super(clientService);
@@ -36,7 +34,7 @@ export class CardController extends AbstractController {
       id: PATH,
       title: 'Card Browser',
       navLink: PATH,
-      icon: 'cil-color-palette',
+      icon: 'cil-search',
     });
 
     await this.clientService.emitPage(event, {
@@ -57,14 +55,7 @@ export class CardController extends AbstractController {
     await this.clientService.emitBusy(event, COLLECTION_NAME);
 
     try {
-      const form: CardForm =
-        event.state.forms?.collection ?? DEFAULT_COLLECTION_FORM;
-
-      const playerAddress = form.playerAddress;
-
-      const documents = await this.collectionService.getCollectionDocuments(
-        playerAddress,
-      );
+      const documents = await this.cardService.getCardDocuments();
 
       this.clientService.emitDocuments(event, COLLECTION_NAME, documents);
     } catch (error) {

@@ -1,10 +1,11 @@
 import {
   Button,
   Col,
+  collection,
   Container,
   Datatable,
+  documents,
   Form,
-  formatCurrency,
   formatToken,
   Fragment,
   GridTile,
@@ -17,66 +18,21 @@ import {
   UiElement,
 } from '@earnkeeper/ekp-sdk';
 import { DEFAULT_COLLECTION_FORM } from '../../../util';
-import { collection, documents } from '../../../util/paths';
+import { imageLabelCell } from '../../../util/ui/imageLabelCell';
 import { CollectionDocument } from './collection.document';
 
 export default function element(): UiElement {
   return Container({
-    children: [titleRow(), statsRow(), yourDetailsRow(), decksTable()],
+    children: [titleRow(), formRow(), tableRow()],
   });
 }
 
-function titleRow() {
-  return Fragment({
-    children: [
-      Row({
-        className: 'mb-2',
-        children: [
-          Col({
-            className: 'col-auto',
-            children: [
-              PageHeaderTile({
-                title: 'Player Cards',
-                icon: 'cil-color-palette',
-              }),
-            ],
-          }),
-        ],
-      }),
-      Span({
-        className: 'd-block mt-1 mb-2 font-small-4',
-        content: ' Card Collection ',
-      }),
-    ],
-  });
-}
-
-function statsRow() {
-  return Row({
-    children: [
-      Col({
-        className: 'col-auto',
-        children: [],
-      }),
-      Col({
-        className: 'col-auto',
-        children: [],
-      }),
-    ],
-  });
-}
-
-function yourDetailsRow() {
+function formRow() {
   return Fragment({
     children: [
       Span({
-        className: 'font-weight-bold font-medium-3 d-block',
-        content: 'Your Details',
-      }),
-      Span({
-        className: 'd-block mt-1 mb-2 font-small-3',
-        content:
-          'Enter your player name below to update the cost of decks based on the cards you already own',
+        className: 'd-block mt-1 mb-2',
+        content: 'Enter a player name to browse the cards they own',
       }),
       Form({
         name: 'collection',
@@ -119,15 +75,33 @@ function yourDetailsRow() {
   });
 }
 
-export function decksTable() {
+function titleRow() {
+  return Fragment({
+    children: [
+      Row({
+        className: 'mb-2',
+        children: [
+          Col({
+            className: 'col-auto',
+            children: [
+              PageHeaderTile({
+                title: 'Player Cards',
+                icon: 'cil-user',
+              }),
+            ],
+          }),
+        ],
+      }),
+    ],
+  });
+}
+
+export function tableRow() {
   return Fragment({
     children: [
       Datatable({
-        defaultSortFieldId: 'teamName',
-        defaultSortAsc: true,
+        defaultSortFieldId: 'name',
         data: documents(CollectionDocument),
-        //onRowClicked: showModal(TEAM_MODAL_ID, '$'),
-        pointerOnHover: true,
         showExport: true,
         showLastUpdated: true,
         busyWhen: isBusy(collection(CollectionDocument)),
@@ -135,13 +109,12 @@ export function decksTable() {
           xs: 'grid',
           lg: 'column',
         },
-
         gridView: {
           tileWidth: [12, 6, 4, 3],
           tile: GridTile({
             image: Image({
               className: 'card-img-top',
-              src: '$.cardImg',
+              src: '$.cardArtUrl',
             }),
             details: [
               {
@@ -169,60 +142,77 @@ export function decksTable() {
                 value: '$.set',
               },
               {
-                label: 'Live',
-                value: '$.live',
+                label: 'Purity',
+                value: formatToken('$.purity'),
               },
             ],
-            left: {
-              content: formatCurrency('$.price', '$.fiatSymbol'),
-            },
-            right: {
-              content: formatToken('$.qty'),
-            },
           }),
         },
+        filters: [
+          {
+            columnId: 'god',
+            type: 'checkbox',
+          },
+          {
+            columnId: 'rarity',
+            type: 'checkbox',
+          },
+          {
+            columnId: 'set',
+            type: 'checkbox',
+          },
+          {
+            columnId: 'type',
+            type: 'checkbox',
+          },
+        ],
         columns: [
           {
             id: 'name',
-            title: 'Name',
             searchable: true,
             sortable: true,
+            cell: imageLabelCell('$.cardArtUrl', '$.name'),
           },
           {
             id: 'god',
-            title: 'God',
             sortable: true,
+            width: '140px',
           },
           {
             id: 'rarity',
-            title: 'Rarity',
             sortable: true,
-          },
-          {
-            id: 'mana',
-            title: 'Mana',
-            sortable: true,
+            width: '140px',
           },
           {
             id: 'set',
-            title: 'Set',
             sortable: true,
+            width: '140px',
           },
           {
             id: 'type',
-            title: 'Type',
             sortable: true,
+            width: '140px',
           },
-
+          {
+            id: 'mana',
+            sortable: true,
+            width: '80px',
+          },
           {
             id: 'health',
-            title: 'Health',
             sortable: true,
+            width: '80px',
           },
           {
             id: 'attack',
-            title: 'Attack',
             sortable: true,
+            width: '80px',
+          },
+          {
+            id: 'purity',
+            format: formatToken('$.purity'),
+            sortable: true,
+            width: '100px',
           },
         ],
       }),

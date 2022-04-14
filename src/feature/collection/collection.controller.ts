@@ -2,6 +2,7 @@ import {
   ClientConnectedEvent,
   ClientDisconnectedEvent,
   ClientStateChangedEvent,
+  collection,
   RpcEvent,
 } from '@earnkeeper/ekp-sdk';
 import {
@@ -12,7 +13,7 @@ import {
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 import { CollectionForm, DEFAULT_COLLECTION_FORM } from '../../util';
-import { collection } from '../../util/paths';
+
 import { CollectionService } from './collection.service';
 import { CollectionDocument } from './ui/collection.document';
 import collections from './ui/collection.uielement';
@@ -35,7 +36,7 @@ export class CollectionController extends AbstractController {
       id: PATH,
       title: 'Player Cards',
       navLink: PATH,
-      icon: 'cil-color-palette',
+      icon: 'cil-user',
     });
 
     await this.clientService.emitPage(event, {

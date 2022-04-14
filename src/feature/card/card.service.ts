@@ -1,47 +1,40 @@
 import { Injectable } from '@nestjs/common';
 import _ from 'lodash';
-import { ApiService, CardDto } from 'src/shared/api';
-import { CardMapper, Prototype } from 'src/shared/game';
+import moment from 'moment';
+import { ApiService } from '../../shared/api';
+import { CardMapper, Prototype } from '../../shared/game';
 import { CardDocument } from './ui/card.document';
 
 @Injectable()
 export class CardService {
   constructor(private apiService: ApiService) {}
 
-  async getCollectionDocuments(
-    playerAddress: string,
-  ): Promise<CardDocument[]> {
-    if (!playerAddress) {
-      return [];
-    }
-
-    const cards = await this.apiService.fetchAllCards();
-
+  async getCardDocuments(): Promise<CardDocument[]> {
     const protos = await this.apiService.fetchProtos();
 
     const prototypes = protos.map((proto) => CardMapper.mapToPrototype(proto));
 
-    const protoMap = _.chain(prototypes)
-      .keyBy('id')
-      .mapKeys((value, key) => {
-        return Number(key);
-      })
-      .value();
-    return this.mapDocuments(cards, protoMap);
+    return this.mapDocuments(prototypes);
   }
 
-  async mapDocuments(cardDtos: CardDto[], protoMap: Record<number, Prototype>) {
-    const documents: CardDocument[] = cardDtos.map((cardDto) => {
-      const card = CardMapper.mapToCard(cardDto, protoMap);
-
+  async mapDocuments(prototypes: Prototype[]) {
+    const now = moment().unix();
+    const documents: CardDocument[] = prototypes.map((prototype) => {
       return {
-        ...card.prototype,
-        id: card.prototype.id?.toString(),
-        cardImg: `https://images.godsunchained.com/art2/500/${card.prototype.id?.toString()}.webp`,
+        id: prototype.id?.toString(),
+        updated: now,
+        attack: prototype.attack,
+        cardArtUrl: `https://images.godsunchained.com/art2/500/${prototype.id?.toString()}.webp`,
+        god: _.startCase(prototype.god),
+        health: prototype.health,
+        mana: prototype.mana,
+        name: prototype.name,
+        rarity: _.startCase(prototype.rarity),
+        set: _.startCase(prototype.set),
+        type: _.startCase(prototype.type),
       };
     });
-  
-    console.log(documents)
+
     return documents;
   }
 }

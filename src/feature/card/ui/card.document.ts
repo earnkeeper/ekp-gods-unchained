@@ -4,15 +4,10 @@ export class CardDocument extends DocumentDto {
   constructor(properties: CardDocument) {
     super(properties);
   }
-  readonly id: string;
-  readonly name: string;
+  readonly cardArtUrl: string;
   readonly god: string;
-  readonly rarity: string;
   readonly mana: number;
+  readonly name: string;
+  readonly rarity: string;
   readonly set: string;
-  readonly cardImg: string;
-  readonly collectable: boolean;
-  readonly live: boolean;
-  readonly artId: string;
-  readonly libId: string;
 }
