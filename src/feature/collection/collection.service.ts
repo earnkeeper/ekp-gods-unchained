@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import _ from 'lodash';
-import { ApiService, CardDto } from 'src/shared/api';
-import { CardMapper, Prototype } from 'src/shared/game';
+import { ApiService, CardDto } from '../../shared/api';
+import { CardMapper, Prototype } from '../../shared/game';
 import { CollectionDocument } from './ui/collection.document';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class CollectionService {
         cardImg: `https://images.godsunchained.com/art2/500/${card.prototype.id?.toString()}.webp`,
       };
     });
-  
+
     return documents;
   }
 }
