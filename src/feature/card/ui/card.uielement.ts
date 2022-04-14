@@ -18,8 +18,8 @@ import {
   Span,
   UiElement,
 } from '@earnkeeper/ekp-sdk';
-import { DEFAULT_COLLECTION_FORM } from 'src/util';
-import { CollectionDocument } from './collection.document';
+import { DEFAULT_CARD_FORM } from 'src/util';
+import { CardDocument } from './card.document';
 
 export default function element(): UiElement {
   return Container({
@@ -86,7 +86,7 @@ function yourDetailsRow() {
           properties: {
             playerAddress: 'string',
           },
-          default: DEFAULT_COLLECTION_FORM,
+          default: DEFAULT_CARD_FORM,
         },
         children: [
           Row({
@@ -108,7 +108,7 @@ function yourDetailsRow() {
                   Button({
                     label: 'Update',
                     isSubmit: true,
-                    busyWhen: isBusy(collection(CollectionDocument)),
+                    busyWhen: isBusy(collection(CardDocument)),
                   }),
                 ],
               }),
@@ -126,12 +126,12 @@ export function decksTable() {
       Datatable({
         defaultSortFieldId: 'teamName',
         defaultSortAsc: true,
-        data: documents(CollectionDocument),
+        data: documents(CardDocument),
         //onRowClicked: showModal(TEAM_MODAL_ID, '$'),
         pointerOnHover: true,
         showExport: true,
         showLastUpdated: true,
-        busyWhen: isBusy(collection(CollectionDocument)),
+        busyWhen: isBusy(collection(CardDocument)),
         defaultView: {
           xs: 'grid',
           lg: 'column',

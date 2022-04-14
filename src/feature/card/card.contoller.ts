@@ -13,19 +13,19 @@ import {
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_COLLECTION_FORM } from 'src/util';
-import { CollectionForm } from 'src/util/form';
-import { CollectionService } from './collection.service';
-import { CollectionDocument } from './ui/collection.document';
-import collections from './ui/collection.uielement';
+import { CardForm } from 'src/util/form';
+import { CardService } from './card.service';
+import { CardDocument } from './ui/card.document';
+import collections from './ui/card.uielement';
 
-const COLLECTION_NAME = collection(CollectionDocument);
-const PATH = 'collection';
+const COLLECTION_NAME = collection(CardDocument);
+const PATH = 'cards';
 
 @Injectable()
-export class CollectionController extends AbstractController {
+export class CardController extends AbstractController {
   constructor(
     clientService: ClientService,
-    private collectionService: CollectionService,
+    private collectionService: CardService,
     private apmService: ApmService,
   ) {
     super(clientService);
@@ -34,9 +34,9 @@ export class CollectionController extends AbstractController {
   async onClientConnected(event: ClientConnectedEvent) {
     await this.clientService.emitMenu(event, {
       id: PATH,
-      title: 'Player Cards',
+      title: 'Card Browser',
       navLink: PATH,
-      icon: 'color-palette',
+      icon: 'search',
     });
 
     await this.clientService.emitPage(event, {
@@ -57,7 +57,7 @@ export class CollectionController extends AbstractController {
     await this.clientService.emitBusy(event, COLLECTION_NAME);
 
     try {
-      const form: CollectionForm =
+      const form: CardForm =
         event.state.forms?.collection ?? DEFAULT_COLLECTION_FORM;
 
       const playerAddress = form.playerAddress;
