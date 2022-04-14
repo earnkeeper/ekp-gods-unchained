@@ -1,5 +1,5 @@
 configVersion: 1
-project: gods_unchained
+project: gods-unchained
 ---
 image: app
 dockerfile: Dockerfile

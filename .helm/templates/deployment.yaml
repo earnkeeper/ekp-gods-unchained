@@ -21,15 +21,15 @@ spec:
           workingDir: /app
           env:
             - name: EKP_PLUGIN_ID
-              value: 'Gods_unchained'
+              value: '{{ .Chart.Name }}'
             - name: EKP_PLUGIN_NAME
-              value: 'Gods_unchained'
+              value: '.'
             - name: MONGO_HOST
               value: '{{ .Values.mongodb.host }}'
             - name: MONGO_DB_NAME
-              value: '{{ .Values.mongodb.databaseName }}'
+              value: '{{ .Chart.Name }}'
             - name: MONGO_USER
-              value: '{{ .Values.mongodb.username }}'
+              value: '{{ .Chart.Name }}'
             - name: MONGO_PASSWORD
               value: '{{ .Values.mongodb.password }}'
             - name: REDIS_HOST
