@@ -12,18 +12,20 @@ import {
   logger,
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
-import { HistoryService } from './history.service';
-import { HistoryDocument } from './ui/history.document';
-import history from './ui/history.uielement';
+import { DEFAULT_COLLECTION_FORM } from 'src/util';
+import { CollectionForm } from 'src/util/form';
+import { CollectionService } from './collection.service';
+import { CollectionDocument } from './ui/collection.document';
+import collections from './ui/collection.uielement';
 
-const COLLECTION_NAME = collection(HistoryDocument);
-const PATH = 'history';
+const COLLECTION_NAME = collection(CollectionDocument);
+const PATH = 'collection';
 
 @Injectable()
-export class HistoryController extends AbstractController {
+export class CollectionController extends AbstractController {
   constructor(
     clientService: ClientService,
-    private historyService: HistoryService,
+    private collectionService: CollectionService,
     private apmService: ApmService,
   ) {
     super(clientService);
@@ -32,14 +34,14 @@ export class HistoryController extends AbstractController {
   async onClientConnected(event: ClientConnectedEvent) {
     await this.clientService.emitMenu(event, {
       id: PATH,
-      title: 'Player History',
+      title: 'Collection',
       navLink: PATH,
-      icon: 'cil-history',
+      icon: 'cil-color-palette',
     });
 
     await this.clientService.emitPage(event, {
       id: PATH,
-      element: history(),
+      element: collections(),
     });
   }
 
@@ -55,13 +57,16 @@ export class HistoryController extends AbstractController {
     await this.clientService.emitBusy(event, COLLECTION_NAME);
 
     try {
-      const historyDocuments = await this.historyService.getHistoryDocuments();
+      const form: CollectionForm =
+        event.state.forms?.collection ?? DEFAULT_COLLECTION_FORM;
 
-      this.clientService.emitDocuments(
-        event,
-        COLLECTION_NAME,
-        historyDocuments,
+      const playerAddress = form.playerAddress;
+
+      const documents = await this.collectionService.getCollectionDocuments(
+        playerAddress,
       );
+
+      this.clientService.emitDocuments(event, COLLECTION_NAME, documents);
     } catch (error) {
       this.apmService.captureError(error);
       logger.error('Error occurred while handling event', error);

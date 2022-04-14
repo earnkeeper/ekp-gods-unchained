@@ -1,6 +1,6 @@
 # Gods Unchained EarnKeeper.io Plugin
 
-The (EarnKeeper.io)[https://github.com/earnkeeper] plugin for [Gods Unchained](https://godsunchained.com/).
+The (EarnKeeper.io)[https://github.com/earnkeeper] plugin for [Gods Unchained](https://godsunchained.com).
 
 This plugin uses the [EarnKeeper NestJs SDK](https://github.com/earnkeeper/ekp-sdk-nestjs).
 
