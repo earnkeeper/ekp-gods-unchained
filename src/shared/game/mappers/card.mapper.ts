@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import { ProtoDto } from 'src/shared/api/dto/proto.dto';
-import { CardDto } from '../../../shared/api';
+import { CardDto, ProtoDto } from '../../../shared/api';
 import { Card, Prototype } from '../domain';
 
 export class CardMapper {

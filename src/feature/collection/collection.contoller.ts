@@ -12,8 +12,7 @@ import {
   logger,
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
-import { DEFAULT_COLLECTION_FORM } from 'src/util';
-import { CollectionForm } from 'src/util/form';
+import { CollectionForm, DEFAULT_COLLECTION_FORM } from '../../util';
 import { CollectionService } from './collection.service';
 import { CollectionDocument } from './ui/collection.document';
 import collections from './ui/collection.uielement';
