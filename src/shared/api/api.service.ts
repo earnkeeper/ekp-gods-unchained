@@ -35,7 +35,7 @@ export class ApiService extends AbstractApiService {
 
   async fetchProtos(): Promise<ProtoDto[]> {
     const url = `${BASE_URL}proto?perPage=10000`;
-    return this.handleCall({ url, ttl: 15 }, async () => {
+    return this.handleCall({ url, ttl: 86400 }, async () => {
       const response = await axios.get(url, { proxy: this.proxy });
       return response.data?.records ?? [];
     });

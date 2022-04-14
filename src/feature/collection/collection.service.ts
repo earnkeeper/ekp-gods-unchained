@@ -27,7 +27,6 @@ export class CollectionService {
         return Number(key);
       })
       .value();
-
     return this.mapDocuments(cards, protoMap);
   }
 
@@ -38,8 +37,10 @@ export class CollectionService {
       return {
         ...card.prototype,
         id: card.prototype.id?.toString(),
+        cardImg: `https://images.godsunchained.com/art2/500/${card.prototype.id?.toString()}.webp`,
       };
     });
+  
     return documents;
   }
 }

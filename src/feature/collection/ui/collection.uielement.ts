@@ -142,16 +142,12 @@ export function decksTable() {
           tile: GridTile({
             image: Image({
               className: 'card-img-top',
-              src: '$.summonerCardImg',
+              src: '$.cardImg',
             }),
             details: [
               {
                 label: 'Name',
                 value: '$.name',
-              },
-              {
-                label: 'Effect',
-                value: '$.effect',
               },
               {
                 label: 'God',
@@ -167,7 +163,7 @@ export function decksTable() {
               },
               {
                 label: 'Type',
-                value: '$.recordType',
+                value: '$.type',
               },
               {
                 label: 'Set',
@@ -178,19 +174,6 @@ export function decksTable() {
                 value: '$.live',
               },
 
-              {
-                label: 'Lib',
-                value: '$.libId',
-              },
-              {
-                label: 'Collectible',
-                value: '$.collectible',
-              },
-
-              {
-                label: 'Art',
-                value: '$.artId',
-              },
             ],
             left: {
               content: formatCurrency('$.price', '$.fiatSymbol'),
@@ -208,12 +191,6 @@ export function decksTable() {
             sortable: true,
           },
           {
-            id: 'effect',
-            title: 'Effect',
-            sortable: true,
-            width: '120px',
-          },
-          {
             id: 'god',
             title: 'God',
             sortable: true,
@@ -222,51 +199,32 @@ export function decksTable() {
             id: 'rarity',
             title: 'Rarity',
             sortable: true,
-            grow: 0,
           },
           {
             id: 'mana',
             title: 'Mana',
             sortable: true,
-            grow: 0,
           },
-          {
-            id: 'recordType',
-            title: 'Record Type',
-            sortable: true,
-            grow: 0,
-          },
-
           {
             id: 'set',
             title: 'Set',
             sortable: true,
-            grow: 0,
           },
           {
-            id: 'collectible',
-            title: 'Collectible',
+            id: 'type',
+            title: 'Type',
             sortable: true,
-            grow: 0,
           },
 
           {
-            id: 'live',
-            title: 'Live',
+            id: 'health',
+            title: 'Health',
             sortable: true,
-            grow: 0,
           },
           {
-            id: 'artId',
-            title: 'Art Id',
+            id: 'attack',
+            title: 'Attack',
             sortable: true,
-            grow: 0,
-          },
-          {
-            id: 'libId',
-            title: 'Lib Id',
-            sortable: true,
-            grow: 0,
           },
         ],
       }),

@@ -6,11 +6,11 @@ export class CollectionDocument extends DocumentDto {
   }
   readonly id: string;
   readonly name: string;
-  readonly effect: string;
   readonly god: string;
   readonly rarity: string;
   readonly mana: number;
   readonly set: string;
+  readonly cardImg: string;
   readonly collectable: boolean;
   readonly live: boolean;
   readonly artId: string;
