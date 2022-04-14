@@ -4,7 +4,6 @@ import {
   ClientStateChangedEvent,
   collection,
   RpcEvent,
-  UiElement,
 } from '@earnkeeper/ekp-sdk';
 import {
   AbstractController,
@@ -13,13 +12,11 @@ import {
   logger,
 } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
-import { format } from 'path';
-import { CardDto } from 'src/shared/api';
-import { CardForm } from 'src/util/form';
-import { CollectionService } from './collections.service';
-import { CollectionDocument } from './ui/collections.document';
-import collections from './ui/collections.uielement';
-import { DEFAULT_CARD_FORM } from 'src/util';
+import { DEFAULT_COLLECTION_FORM } from 'src/util';
+import { CollectionForm } from 'src/util/form';
+import { CollectionService } from './collection.service';
+import { CollectionDocument } from './ui/collection.document';
+import collections from './ui/collection.uielement';
 
 const COLLECTION_NAME = collection(CollectionDocument);
 const PATH = 'collection';
@@ -56,23 +53,20 @@ export class CollectionController extends AbstractController {
     if (PATH !== event?.state?.client?.path) {
       return;
     }
- 
+
     await this.clientService.emitBusy(event, COLLECTION_NAME);
 
     try {
-      const form: CardForm =
-      event.state.forms?.cards ?? DEFAULT_CARD_FORM;
+      const form: CollectionForm =
+        event.state.forms?.collection ?? DEFAULT_COLLECTION_FORM;
 
-        event.state.forms?.playerName ?? COLLECTION_NAME;
-        const collectionDocuments =
-        await this.collectionService.getCollectionDocuments(form
-        );
+      const playerAddress = form.playerAddress;
 
-      this.clientService.emitDocuments(
-        event,
-        COLLECTION_NAME,
-        collectionDocuments,
+      const documents = await this.collectionService.getCollectionDocuments(
+        playerAddress,
       );
+
+      this.clientService.emitDocuments(event, COLLECTION_NAME, documents);
     } catch (error) {
       this.apmService.captureError(error);
       logger.error('Error occurred while handling event', error);
@@ -86,5 +80,3 @@ export class CollectionController extends AbstractController {
     // Do nothing
   }
 }
-
-

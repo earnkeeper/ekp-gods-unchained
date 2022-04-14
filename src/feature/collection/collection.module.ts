@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ApiModule } from '../../shared/api';
 import { DbModule } from '../../shared/db';
-import { CollectionController } from './collections.contoller';
-import { CollectionService } from './collections.service';
+import { CollectionController } from './collection.contoller';
+import { CollectionService } from './collection.service';
 
 @Module({
   imports: [ApiModule, DbModule],

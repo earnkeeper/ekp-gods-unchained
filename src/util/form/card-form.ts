@@ -1,3 +1,3 @@
-export type CardForm = Readonly<{
-    playerName: string;
-  }>;
+export type CollectionForm = Readonly<{
+  playerAddress: string;
+}>;
