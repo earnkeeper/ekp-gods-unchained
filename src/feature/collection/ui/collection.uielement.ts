@@ -1,10 +1,8 @@
 import {
   Button,
   Col,
-  collection,
   Container,
   Datatable,
-  documents,
   Form,
   formatCurrency,
   formatToken,
@@ -19,6 +17,7 @@ import {
   UiElement,
 } from '@earnkeeper/ekp-sdk';
 import { DEFAULT_COLLECTION_FORM } from '../../../util';
+import { collection, documents } from '../../../util/paths';
 import { CollectionDocument } from './collection.document';
 
 export default function element(): UiElement {
