@@ -9,4 +9,4 @@ import { CardService } from './card.service';
 
   providers: [CardController, CardService],
 })
-export class CollectionModule {}
+export class CardModule {}

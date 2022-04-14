@@ -35,7 +35,7 @@ export class CollectionController extends AbstractController {
       id: PATH,
       title: 'Player Cards',
       navLink: PATH,
-      icon: 'color-palette',
+      icon: 'cil-color-palette',
     });
 
     await this.clientService.emitPage(event, {

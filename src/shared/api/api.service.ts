@@ -24,7 +24,7 @@ export class ApiService extends AbstractApiService {
   }
 
   async fetchCards(playerAddress: string): Promise<CardDto[]> {
-    const url = `${BASE_URL}card?user=${playerAddress}`;
+    const url = `${BASE_URL}card/`;
 
     return this.handleCall({ url, ttl: 15 }, async () => {
       const response = await axios.get(url, { proxy: this.proxy });

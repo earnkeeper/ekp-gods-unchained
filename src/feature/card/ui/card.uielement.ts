@@ -38,7 +38,7 @@ function titleRow() {
             children: [
               PageHeaderTile({
                 title: 'Player Cards',
-                icon: 'color-palette',
+                icon: 'cil-color-palette',
               }),
             ],
           }),

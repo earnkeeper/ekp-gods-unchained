@@ -19,7 +19,7 @@ import { CardDocument } from './ui/card.document';
 import collections from './ui/card.uielement';
 
 const COLLECTION_NAME = collection(CardDocument);
-const PATH = 'cards';
+const PATH = 'card';
 
 @Injectable()
 export class CardController extends AbstractController {
@@ -36,7 +36,7 @@ export class CardController extends AbstractController {
       id: PATH,
       title: 'Card Browser',
       navLink: PATH,
-      icon: 'search',
+      icon: 'cil-color-palette',
     });
 
     await this.clientService.emitPage(event, {
