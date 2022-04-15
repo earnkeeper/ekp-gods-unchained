@@ -12,6 +12,10 @@ export class OrderRepository {
     public orderModel: Model<Order>,
   ) {}
 
+  async find() {
+    return this.orderModel.find().exec();
+  }
+
   async findLatest(): Promise<Order> {
     const results = await this.orderModel
       .find()

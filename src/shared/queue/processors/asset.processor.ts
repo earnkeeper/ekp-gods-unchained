@@ -23,39 +23,34 @@ export class AssetProcessor {
   @Process(PROCESS_ASSETS)
   async processAssets() {
     try {
-      try {
-        const latestAsset = await this.assetRepository.findLatest();
+      const latestAsset = await this.assetRepository.findLatest();
 
-        let latestUpdatedTimestamp = latestAsset?.updatedAt;
+      let latestUpdatedTimestamp = latestAsset?.updatedAt;
 
-        while (true) {
-          const assetDtos = await this.apiService.getAssets(
-            latestUpdatedTimestamp,
-            PAGE_SIZE,
-          );
+      while (true) {
+        const assetDtos = await this.apiService.getAssets(
+          latestUpdatedTimestamp,
+          PAGE_SIZE,
+        );
 
-          if (!assetDtos?.length) {
-            break;
-          }
-
-          const assets = _.chain(assetDtos)
-            .map((assetDto) => AssetMapper.mapToAsset(assetDto))
-            .value();
-
-          await this.assetRepository.save(assets);
-
-          if (assets.length < PAGE_SIZE) {
-            break;
-          }
-
-          latestUpdatedTimestamp = _.chain(assets)
-            .map((asset) => asset.updatedAt)
-            .max()
-            .value();
+        if (!assetDtos?.length) {
+          break;
         }
-      } catch (error) {
-        this.apmService.captureError(error);
-        logger.error(error);
+
+        const assets = _.chain(assetDtos)
+          .map((assetDto) => AssetMapper.mapToAsset(assetDto))
+          .value();
+
+        await this.assetRepository.save(assets);
+
+        if (assets.length < PAGE_SIZE) {
+          break;
+        }
+
+        latestUpdatedTimestamp = _.chain(assets)
+          .map((asset) => asset.updatedAt)
+          .max()
+          .value();
       }
     } catch (error) {
       this.apmService.captureError(error);

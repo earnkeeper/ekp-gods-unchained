@@ -4,7 +4,11 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { Queue } from 'bull';
 import { RedisService } from 'nestjs-redis';
-import { PROCESS_ASSETS, PROCESS_ORDERS } from '../shared/queue/constants';
+import {
+  PROCESS_ASSETS,
+  PROCESS_MARKET,
+  PROCESS_ORDERS,
+} from '../shared/queue/constants';
 
 @Injectable()
 export class SchedulerService {
@@ -32,6 +36,10 @@ export class SchedulerService {
       'staging',
       'production',
     ]);
+    await this.addJob(PROCESS_MARKET, {}, 5000, PROCESS_MARKET, [
+      'staging',
+      'production',
+    ]);
   }
 
   @Cron('0 */10 * * * *')
@@ -44,6 +52,10 @@ export class SchedulerService {
       'staging',
       'production',
     ]);
+    this.addJob(PROCESS_MARKET, {}, 5000, PROCESS_MARKET, [
+      'staging',
+      'production',
+    ]);
   }
 
   private async addJob<T>(
@@ -53,16 +65,16 @@ export class SchedulerService {
     jobId?: string,
     environments?: string[],
   ) {
-    // if (
-    //   (!Array.isArray(environments) || environments.length === 0) &&
-    //   process.env.NODE_ENV !== 'production'
-    // ) {
-    //   return;
-    // }
+    if (
+      (!Array.isArray(environments) || environments.length === 0) &&
+      process.env.NODE_ENV !== 'production'
+    ) {
+      return;
+    }
 
-    // if (!environments.includes(process.env.NODE_ENV)) {
-    //   return;
-    // }
+    if (!environments.includes(process.env.NODE_ENV)) {
+      return;
+    }
 
     try {
       if (!!jobId) {
