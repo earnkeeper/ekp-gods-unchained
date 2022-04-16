@@ -12,7 +12,7 @@ export class OrderRepository {
 
   async findOrdersWithAssets(): Promise<Order[]> {
     return this.orderRepository.query(
-      'select o.*, a.proto, a.quality from "orders" o join asset a on o.token_id = a.id',
+      'select o.*, a.proto, a.quality from "orders" o join assets a on o.token_id = a.id',
     );
   }
 

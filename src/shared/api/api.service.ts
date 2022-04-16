@@ -1,7 +1,7 @@
 import { AbstractApiService } from '@earnkeeper/ekp-sdk-nestjs';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios-https-proxy-fix';
-import { CardDto } from './dto';
+import { AssetDto, CardDto } from './dto';
 import { ProtoDto } from './dto/proto.dto';
 //URL for API
 const BASE_URL = 'https://api.godsunchained.com/v0/';
@@ -42,7 +42,10 @@ export class ApiService extends AbstractApiService {
     });
   }
 
-  async getAssets(updatedMinTimestamp?: string, pageSize = 200) {
+  async getAssets(
+    updatedMinTimestamp?: string,
+    pageSize = 200,
+  ): Promise<AssetDto[]> {
     let url = `${IMX_URL}assets?collection=0xacb3c6a43d15b907e8433077b6d38ae40936fe2c&page_size=${pageSize}&order_by=updated_at&direction=asc`;
 
     if (!!updatedMinTimestamp) {

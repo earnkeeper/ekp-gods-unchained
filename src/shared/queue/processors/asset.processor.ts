@@ -6,7 +6,7 @@ import {
 import { Process, Processor } from '@nestjs/bull';
 import _ from 'lodash';
 import { ApiService } from '../../api';
-import { AssetRepository } from '../../db/asset/asset.repository';
+import { AssetRepository } from '../../db';
 import { AssetMapper } from '../../game/mappers/asset.mapper';
 import { PROCESS_ASSETS } from '../constants';
 
@@ -38,6 +38,7 @@ export class AssetProcessor {
         }
 
         const assets = _.chain(assetDtos)
+          .filter((asset) => !!asset.metadata?.proto)
           .map((assetDto) => AssetMapper.mapToAsset(assetDto))
           .value();
 
