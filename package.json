@@ -30,7 +30,7 @@
   "homepage": "https://github.com/earnkeeper/ekp-gods-unchained#readme",
   "dependencies": {
     "@earnkeeper/ekp-sdk": "0.2.15",
-    "@earnkeeper/ekp-sdk-nestjs": "file:.yalc/@earnkeeper/ekp-sdk-nestjs",
+    "@earnkeeper/ekp-sdk-nestjs": "2.0.1",
     "@nestjs/schedule": "^1.1.0",
     "@nestjs/typeorm": "^8.0.3",
     "axios-https-proxy-fix": "^0.17.1",
