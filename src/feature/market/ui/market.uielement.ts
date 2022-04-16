@@ -55,7 +55,7 @@ export function tableRow() {
   return Fragment({
     children: [
       Datatable({
-        defaultSortFieldId: 'lowPrice',
+        defaultSortFieldId: 'lowPriceFiat',
         data: documents(MarketDocument),
         pointerOnHover: true,
         showExport: true,
