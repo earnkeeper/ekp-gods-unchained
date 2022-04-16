@@ -24,14 +24,14 @@ spec:
               value: '{{ .Chart.Name }}'
             - name: EKP_PLUGIN_NAME
               value: '.'
-            - name: MONGO_HOST
-              value: '{{ .Values.mongodb.host }}'
-            - name: MONGO_DB_NAME
-              value: '{{ .Chart.Name }}'
-            - name: MONGO_USER
-              value: '{{ .Chart.Name }}'
-            - name: MONGO_PASSWORD
-              value: '{{ .Values.mongodb.password }}'
+            - name: DB_HOST
+              value: '{{ .Release.Name }}-postgresql'
+            - name: DB_NAME
+              value: '{{ .Values.postgresql.auth.database }}'
+            - name: DB_USER
+              value: '{{ .Values.postgresql.auth.username }}'
+            - name: DB_PASSWORD
+              value: '{{ .Values.postgresql.auth.password }}'
             - name: REDIS_HOST
               value: '{{ .Release.Name }}-redis-master'
             - name: NODE_ENV

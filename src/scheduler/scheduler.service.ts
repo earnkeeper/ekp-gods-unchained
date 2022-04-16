@@ -18,44 +18,20 @@ export class SchedulerService {
   ) {}
 
   async onModuleInit() {
-    await this.queue.empty();
-    await this.queue.clean(0, 'wait');
-    await this.queue.clean(0, 'active');
-    await this.queue.clean(0, 'delayed');
-    await this.queue.clean(0, 'paused');
-
     const client = this.redisService.getClient('DEFAULT_CLIENT');
     await client.flushall();
     await client.flushdb();
 
-    await this.addJob(PROCESS_ORDERS, {}, 5000, PROCESS_ORDERS, [
-      'staging',
-      'production',
-    ]);
-    await this.addJob(PROCESS_ASSETS, {}, 5000, PROCESS_ASSETS, [
-      'staging',
-      'production',
-    ]);
-    await this.addJob(PROCESS_MARKET, {}, 5000, PROCESS_MARKET, [
-      'staging',
-      'production',
-    ]);
+    await this.addJob(PROCESS_ORDERS, {}, 5000, PROCESS_ORDERS);
+    await this.addJob(PROCESS_ASSETS, {}, 5000, PROCESS_ASSETS);
+    await this.addJob(PROCESS_MARKET, {}, 5000, PROCESS_MARKET);
   }
 
   @Cron('0 */10 * * * *')
-  every10minutes() {
-    this.addJob(PROCESS_ORDERS, {}, 5000, PROCESS_ORDERS, [
-      'staging',
-      'production',
-    ]);
-    this.addJob(PROCESS_ASSETS, {}, 5000, PROCESS_ASSETS, [
-      'staging',
-      'production',
-    ]);
-    this.addJob(PROCESS_MARKET, {}, 5000, PROCESS_MARKET, [
-      'staging',
-      'production',
-    ]);
+  async every10minutes() {
+    await this.addJob(PROCESS_ORDERS, {}, 5000, PROCESS_ORDERS);
+    await this.addJob(PROCESS_ASSETS, {}, 5000, PROCESS_ASSETS);
+    await this.addJob(PROCESS_MARKET, {}, 5000, PROCESS_MARKET);
   }
 
   private async addJob<T>(
@@ -63,19 +39,7 @@ export class SchedulerService {
     data?: T,
     delay = 0,
     jobId?: string,
-    environments?: string[],
   ) {
-    if (
-      (!Array.isArray(environments) || environments.length === 0) &&
-      process.env.NODE_ENV !== 'production'
-    ) {
-      return;
-    }
-
-    if (!environments.includes(process.env.NODE_ENV)) {
-      return;
-    }
-
     try {
       if (!!jobId) {
         await this.queue.add(jobName, data, {

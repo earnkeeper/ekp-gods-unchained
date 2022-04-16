@@ -9,3 +9,10 @@ redis:
     disableCommands: []
     persistence:
       enabled: false
+
+postgresql:
+  persistence:
+    size: 16Gi
+  resources:
+    limits:
+      memory: 2Gi

@@ -7,8 +7,7 @@ export class AssetMapper {
       id: assetDto.token_id,
       proto: assetDto.metadata?.proto,
       quality: assetDto.metadata?.quality,
-      status: assetDto.status,
-      updatedAt: assetDto.updated_at,
+      updated_at: assetDto.updated_at,
     };
   }
 }

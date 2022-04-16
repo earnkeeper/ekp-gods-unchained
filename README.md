@@ -18,11 +18,11 @@ Run the plugin locally with:
 npm run start
 ```
 
-⚠️ This app requires redis and mongodb, make sure you have redis running locally on port 6379 and mongodb running locally on port 27019.
+⚠️ This app requires redis and postgresql, make sure you have redis running locally on port 6379 and postgresql running locally on port 5432.
 
 ## Deploying
 
-The repository is already set up for deploy to kubernetes. 
+The repository is already set up for deploy to kubernetes.
 
 From a fresh install, add a new file to the root of the project:
 
@@ -43,9 +43,9 @@ npm run encrypt-secrets
 
 Set the following two secrets on your github repo:
 
-Secret Name|Description
----|---
-WERF_SECRET_KEY|The contents of .werf_secret_key in the root of your project
-KUBE_CONFIG_BASE64_DATA|The output of `doctl kubernetes cluster kubeconfig show <config name> | base64` if using digital ocean
+| Secret Name             | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- | ------------------------------ |
+| WERF_SECRET_KEY         | The contents of .werf_secret_key in the root of your project          |
+| KUBE_CONFIG_BASE64_DATA | The output of `doctl kubernetes cluster kubeconfig show <config name> | base64` if using digital ocean |
 
 Commit your changes and push to `main` branch. The github action in this repo will perform the deploy with werf.

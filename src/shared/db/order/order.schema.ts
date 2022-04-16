@@ -1,47 +1,45 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
-export type OrderSchema = Order & Document;
-
-@Schema()
+@Entity({ name: 'orders' })
 export class Order {
-  @Prop()
+  @PrimaryColumn()
   readonly id: number;
 
-  @Prop()
+  @Column()
   readonly user: string;
 
-  @Prop()
-  readonly tokenId: string;
+  @Column()
+  readonly token_id: string;
 
-  @Prop()
+  @Column()
   readonly quantity: number;
 
-  @Prop()
-  readonly name: string;
+  @Column({ nullable: true })
+  readonly name?: string;
 
-  @Prop()
-  readonly buyTokenAddress: string;
+  @Column()
+  readonly buy_token_address: string;
 
-  @Prop()
-  readonly buyTokenDecimals: number;
+  @Column()
+  readonly buy_token_decimals: number;
 
-  @Prop()
-  readonly buyTokenQuantity: string;
+  @Column()
+  readonly buy_token_quantity: string;
 
-  @Prop()
-  readonly amountSold: number;
+  @Column({ nullable: true })
+  readonly amount_sold?: number;
 
-  @Prop()
+  @Column()
   readonly timestamp: string;
 
-  @Prop()
-  readonly updatedTimestamp: string;
+  @Index()
+  @Column()
+  readonly updated_timestamp: string;
 
-  @Prop()
-  readonly expirationTimestamp: string;
+  @Column({ nullable: true })
+  readonly expiration_timestamp?: string;
+
+  readonly proto?: number;
+
+  readonly quality?: number;
 }
-
-export const OrderSchema = SchemaFactory.createForClass(Order)
-  .index({ id: 1 }, { unique: true })
-  .index({ updatedTimestamp: 1 });

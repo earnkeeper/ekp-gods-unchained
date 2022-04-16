@@ -1,16 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Asset, AssetSchema, AssetRepository } from './asset';
-import { Order, OrderSchema } from './order';
-import { OrderRepository } from './order';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Asset, AssetRepository } from './asset';
+import { Order, OrderRepository } from './order';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: Asset.name, schema: AssetSchema },
-      { name: Order.name, schema: OrderSchema },
-    ]),
-  ],
+  imports: [TypeOrmModule.forFeature([Asset, Order])],
   providers: [AssetRepository, OrderRepository],
   exports: [AssetRepository, OrderRepository],
 })

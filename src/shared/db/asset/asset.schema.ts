@@ -1,26 +1,18 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Column, Entity, Index, PrimaryColumn } from 'typeorm';
 
-export type AssetSchema = Asset & Document;
-
-@Schema({ collection: 'assets_v2' })
+@Entity({ name: 'assets' })
 export class Asset {
-  @Prop()
+  @PrimaryColumn()
   readonly id: string;
 
-  @Prop()
-  readonly status: string;
-
-  @Prop()
+  @Index()
+  @Column()
   readonly proto: number;
 
-  @Prop()
+  @Column()
   readonly quality: string;
 
-  @Prop()
-  readonly updatedAt: string;
+  @Index()
+  @Column()
+  readonly updated_at: string;
 }
-
-export const AssetSchema = SchemaFactory.createForClass(Asset)
-  .index({ id: 1 }, { unique: true })
-  .index({ updatedAt: 1 });

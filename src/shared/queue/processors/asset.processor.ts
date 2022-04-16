@@ -25,7 +25,7 @@ export class AssetProcessor {
     try {
       const latestAsset = await this.assetRepository.findLatest();
 
-      let latestUpdatedTimestamp = latestAsset?.updatedAt;
+      let latestUpdatedTimestamp = latestAsset?.updated_at;
 
       while (true) {
         const assetDtos = await this.apiService.getAssets(
@@ -48,7 +48,7 @@ export class AssetProcessor {
         }
 
         latestUpdatedTimestamp = _.chain(assets)
-          .map((asset) => asset.updatedAt)
+          .map((asset) => asset.updated_at)
           .max()
           .value();
       }

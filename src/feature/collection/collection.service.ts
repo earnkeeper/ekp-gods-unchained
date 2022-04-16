@@ -38,7 +38,7 @@ export class CollectionService {
 
       const prototype = card.prototype;
 
-      return {
+      const document: CollectionDocument = {
         id: card.prototype.id?.toString(),
         updated: now,
         attack: prototype.attack,
@@ -52,6 +52,7 @@ export class CollectionService {
         set: _.startCase(prototype.set),
         type: _.startCase(prototype.type),
       };
+      return document;
     });
 
     return documents;

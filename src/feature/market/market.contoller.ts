@@ -55,9 +55,11 @@ export class MarketController extends AbstractController {
     await this.clientService.emitBusy(event, COLLECTION_NAME);
 
     try {
-      const documents = await this.marketService.getCardDocuments();
+      const currency = event.state.client.selectedCurrency;
 
-      this.clientService.emitDocuments(event, COLLECTION_NAME, documents);
+      const documents = await this.marketService.getMarketDocuments(currency);
+
+      await this.clientService.emitDocuments(event, COLLECTION_NAME, documents);
     } catch (error) {
       this.apmService.captureError(error);
       logger.error('Error occurred while handling event', error);

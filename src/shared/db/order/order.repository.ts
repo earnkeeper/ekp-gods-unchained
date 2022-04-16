@@ -1,27 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { validate } from 'bycontract';
-import _ from 'lodash';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Order } from './order.schema';
 
 @Injectable()
 export class OrderRepository {
   constructor(
-    @InjectModel(Order.name)
-    public orderModel: Model<Order>,
+    @InjectRepository(Order)
+    public orderRepository: Repository<Order>,
   ) {}
 
-  async find() {
-    return this.orderModel.find().exec();
+  async findOrdersWithAssets(): Promise<Order[]> {
+    return this.orderRepository.query(
+      'select o.*, a.proto, a.quality from "orders" o join asset a on o.token_id = a.id',
+    );
   }
 
   async findLatest(): Promise<Order> {
-    const results = await this.orderModel
-      .find()
-      .sort('timestamp')
-      .limit(1)
-      .exec();
+    const results = await this.orderRepository.find({
+      order: { updated_timestamp: 'DESC' },
+      take: 1,
+    });
 
     if (!results?.length) {
       return undefined;
@@ -30,42 +29,11 @@ export class OrderRepository {
     return results[0];
   }
 
-  async save(orders: Order[]): Promise<void> {
-    validate([orders], ['Array.<object>']);
-
-    if (orders.length === 0) {
+  async save(models: Order[]): Promise<void> {
+    if (!models?.length) {
       return;
     }
 
-    await this.orderModel.bulkWrite(
-      orders.map((model) => {
-        validate(model, 'object');
-
-        return {
-          updateOne: {
-            filter: {
-              id: model.id,
-            },
-            update: {
-              $set: _.pick(model, [
-                'id',
-                'user',
-                'tokenId',
-                'quantity',
-                'name',
-                'buyTokenAddress',
-                'buyTokenDecimals',
-                'buyTokenQuantity',
-                'amountSold',
-                'timestamp',
-                'updatedTimestamp',
-                'expirationTimestamp',
-              ]),
-            },
-            upsert: true,
-          },
-        };
-      }),
-    );
+    await this.orderRepository.upsert(models, ['id']);
   }
 }

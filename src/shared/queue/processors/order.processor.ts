@@ -25,7 +25,7 @@ export class OrderProcessor {
     try {
       const latestOrder = await this.orderRepository.findLatest();
 
-      let latestUpdatedTimestamp = latestOrder?.updatedTimestamp;
+      let latestUpdatedTimestamp = latestOrder?.updated_timestamp;
 
       while (true) {
         const orderDtos = await this.apiService.getOrders(
@@ -48,7 +48,7 @@ export class OrderProcessor {
         }
 
         latestUpdatedTimestamp = _.chain(orders)
-          .map((order) => order.updatedTimestamp)
+          .map((order) => order.updated_timestamp)
           .max()
           .value();
       }
