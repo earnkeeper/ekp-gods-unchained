@@ -5,6 +5,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CardModule } from './feature/card/card.module';
 import { CollectionModule } from './feature/collection/collection.module';
 import { MarketModule } from './feature/market/market.module';
+import { PlannerModule } from './feature/planner/planner.module';
 import { QueueModule } from './shared/queue/queue.module';
 
 export const MODULE_DEF = {
@@ -23,6 +24,7 @@ export const MODULE_DEF = {
     }),
     CollectionModule,
     CardModule,
+    PlannerModule,
     MarketModule,
     QueueModule,
     SdkModule,
